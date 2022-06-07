@@ -1,11 +1,12 @@
 import React from "react";
+import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import "./App.css";
 
-function App() {
+const App = () => {
   const errRef: any = useRef();
-  const userRef = useRef();
+  const userRef: any = useRef();
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errMsg, setErrMsg] = useState<string>("");
@@ -26,6 +27,14 @@ function App() {
     setPassword("");
     setSucces(true);
   };
+
+  useEffect(() => {
+    userRef.current.focus();
+  }, []);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [userName, password]);
   return (
     <div className="App">
       <main className="App-header">
@@ -47,7 +56,7 @@ function App() {
             >
               <label htmlFor="username">Username</label>
               <input
-                ref={useRef}
+                ref={userRef}
                 onChange={handleUserName}
                 type="text"
                 name="username"
@@ -86,6 +95,6 @@ function App() {
       </main>
     </div>
   );
-}
+};
 
 export default App;
