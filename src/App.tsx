@@ -5,6 +5,7 @@ import "./App.css";
 function App() {
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [success, setSucces] = useState<boolean>(false);
 
   const handleUserName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setUserName(e.target.value);
@@ -13,49 +14,67 @@ function App() {
   const handlePassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setPassword(e.target.value);
   };
+
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    console.log(userName, password);
+    setUserName("");
+    setPassword("");
+    setSucces(true);
+  };
   return (
     <div className="App">
       <main className="App-header">
-        <form
-          action=""
-          style={{ gap: "10px", display: "flex", flexDirection: "column" }}
-        >
-          <div
-            className="username"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "10px",
-            }}
+        {success ? (
+          <h1>succes</h1>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            action=""
+            style={{ gap: "10px", display: "flex", flexDirection: "column" }}
           >
-            <label htmlFor="username">Username</label>
-            <input
-              onChange={handleUserName}
-              type="text"
-              name="username"
-              id=""
-            />
-          </div>
-          <div
-            className="Password"
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              gap: "10px",
-            }}
-          >
-            <label htmlFor="password">Password</label>
-            <input
-              onChange={handlePassword}
-              type="password"
-              name="password"
-              id=""
-            />
-          </div>
-          <div className="submit-btn">
-            <button>submit</button>
-          </div>
-        </form>
+            <div
+              className="username"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "10px",
+              }}
+            >
+              <label htmlFor="username">Username</label>
+              <input
+                onChange={handleUserName}
+                type="text"
+                name="username"
+                value={userName}
+                required
+                id=""
+              />
+            </div>
+            <div
+              className="Password"
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                gap: "10px",
+              }}
+            >
+              <label htmlFor="password">Password</label>
+              <input
+                onChange={handlePassword}
+                type="password"
+                name="password"
+                value={password}
+                required
+                id=""
+              />
+            </div>
+            <div className="submit-btn">
+              <button>sign in</button>
+              <button>sign up</button>
+            </div>
+          </form>
+        )}
       </main>
     </div>
   );
