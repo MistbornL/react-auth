@@ -3,8 +3,8 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [userName, setUserName] = useState("");
-  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   return (
     <div className="App">
       <main className="App-header">
@@ -20,8 +20,8 @@ function App() {
               gap: "10px",
             }}
           >
-            <label htmlFor="">Username</label>
-            <input type="password" name="username" id="" />
+            <label htmlFor="username">Username</label>
+            <input type="text" name="username" id="" />
           </div>
           <div
             className="Password"
@@ -31,8 +31,8 @@ function App() {
               gap: "10px",
             }}
           >
-            <label htmlFor="">Password</label>
-            <input type="text" name="password" id="" />
+            <label htmlFor="password">Password</label>
+            <input type="password" name="password" id="" />
           </div>
         </form>
       </main>
