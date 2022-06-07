@@ -5,6 +5,14 @@ import "./App.css";
 function App() {
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+
+  const handleUserName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setUserName(e.target.value);
+  };
+
+  const handlePassword: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setPassword(e.target.value);
+  };
   return (
     <div className="App">
       <main className="App-header">
@@ -21,7 +29,12 @@ function App() {
             }}
           >
             <label htmlFor="username">Username</label>
-            <input type="text" name="username" id="" />
+            <input
+              onChange={handleUserName}
+              type="text"
+              name="username"
+              id=""
+            />
           </div>
           <div
             className="Password"
@@ -32,7 +45,15 @@ function App() {
             }}
           >
             <label htmlFor="password">Password</label>
-            <input type="password" name="password" id="" />
+            <input
+              onChange={handlePassword}
+              type="password"
+              name="password"
+              id=""
+            />
+          </div>
+          <div className="submit-btn">
+            <button>submit</button>
           </div>
         </form>
       </main>
