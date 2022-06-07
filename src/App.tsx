@@ -1,10 +1,14 @@
 import React from "react";
+import { useRef } from "react";
 import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const errRef: any = useRef();
+  const userRef = useRef();
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [errMsg, setErrMsg] = useState<string>("");
   const [success, setSucces] = useState<boolean>(false);
 
   const handleUserName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -43,6 +47,7 @@ function App() {
             >
               <label htmlFor="username">Username</label>
               <input
+                ref={useRef}
                 onChange={handleUserName}
                 type="text"
                 name="username"
@@ -68,6 +73,9 @@ function App() {
                 required
                 id=""
               />
+              <p ref={errRef} className={errMsg ? "errMsg" : "offscreen"}>
+                {errMsg}
+              </p>
             </div>
             <div className="submit-btn">
               <button>sign in</button>
