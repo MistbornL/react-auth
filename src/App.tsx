@@ -1,7 +1,10 @@
 import React from "react";
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
   return (
     <div className="App">
       <main className="App-header">
@@ -18,7 +21,7 @@ function App() {
             }}
           >
             <label htmlFor="">Username</label>
-            <input type="text" name="username" id="" />
+            <input type="password" name="username" id="" />
           </div>
           <div
             className="Password"
