@@ -76,48 +76,50 @@ const App = () => {
             style={{ gap: "10px", display: "flex", flexDirection: "column" }}
           >
             <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
               className="username"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "10px",
-              }}
             >
-              <label htmlFor="username">Username</label>
-              <input
-                ref={userRef}
-                onChange={handleUserName}
-                type="text"
-                name="username"
-                value={userName}
-                required
-                id=""
-              />
-            </div>
-            <div
-              className="Password"
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                gap: "10px",
-              }}
-            >
-              <label htmlFor="password">Password</label>
-              <input
-                onChange={handlePassword}
-                type="password"
-                name="password"
-                value={password}
-                required
-                id=""
-              />
+              <div style={{ gap: "20px" }}>
+                <label htmlFor="username">Username</label>
+                <input
+                  ref={userRef}
+                  onChange={handleUserName}
+                  type="text"
+                  name="username"
+                  value={userName}
+                  required
+                  id=""
+                />
+              </div>
+              <div>
+                <label htmlFor="password">Password</label>
+                <input
+                  onChange={handlePassword}
+                  type="password"
+                  name="password"
+                  value={password}
+                  required
+                  id=""
+                />
+              </div>
+              <div
+                style={{
+                  justifyContent: "center",
+                  gap: "20px",
+                  display: "flex",
+                }}
+                className="submit-btn"
+              >
+                <button>sign in</button>
+                <button>sign up</button>
+              </div>
               <p ref={errRef} className={errMsg ? "errMsg" : "offscreen"}>
                 {errMsg}
               </p>
-            </div>
-            <div className="submit-btn">
-              <button>sign in</button>
-              <button>sign up</button>
             </div>
           </form>
         )}
