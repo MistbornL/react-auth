@@ -10,7 +10,7 @@ const App = () => {
   const [userName, setUserName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errMsg, setErrMsg] = useState<string>("");
-  const [success, setSucces] = useState<boolean>(false);
+  const [success, setSuccess] = useState<boolean>(false);
 
   const handleUserName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setUserName(e.target.value);
@@ -25,7 +25,7 @@ const App = () => {
     console.log(userName, password);
     setUserName("");
     setPassword("");
-    setSucces(true);
+    setSuccess(true);
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const App = () => {
     <div className="App">
       <main className="App-header">
         {success ? (
-          <h1>succes</h1>
+          <h1>success</h1>
         ) : (
           <form
             onSubmit={handleSubmit}
