@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
+import axios from "./api/axios";
 import "./App.css";
 
 const App = () => {
@@ -11,6 +12,7 @@ const App = () => {
   const [password, setPassword] = useState<string>("");
   const [errMsg, setErrMsg] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
+  const LOGIN_URL = "/auth";
 
   const handleUserName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setUserName(e.target.value);
@@ -20,12 +22,37 @@ const App = () => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    console.log(userName, password);
-    setUserName("");
-    setPassword("");
-    setSuccess(true);
+    try {
+      const response = await axios.post(
+        LOGIN_URL,
+        JSON.stringify({ userName, password }),
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+      console.log(JSON.stringify(response?.data));
+      //console.log(JSON.stringify(response));
+      const accessToken = response?.data?.accessToken;
+      const roles = response?.data?.roles;
+      setAuth({ userName, password, roles, accessToken });
+      setUserName("");
+      setPassword("");
+      setSuccess(true);
+    } catch (err) {
+      if (!err?.response) {
+        setErrMsg("No Server Response");
+      } else if (err.response?.status === 400) {
+        setErrMsg("Missing Username or Password");
+      } else if (err.response?.status === 401) {
+        setErrMsg("Unauthorized");
+      } else {
+        setErrMsg("Login Failed");
+      }
+      errRef.current.focus();
+    }
   };
 
   useEffect(() => {
