@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import axios from "./api/axios";
 import "./App.css";
+import AuthContext from "./context/AuthProvider";
 
 const App = () => {
+  const { setAuth }: any = useContext(AuthContext);
   const errRef: any = useRef();
   const userRef: any = useRef();
   const [userName, setUserName] = useState<string>("");
@@ -41,7 +43,7 @@ const App = () => {
       setUserName("");
       setPassword("");
       setSuccess(true);
-    } catch (err) {
+    } catch (err: any) {
       if (!err?.response) {
         setErrMsg("No Server Response");
       } else if (err.response?.status === 400) {
