@@ -14,6 +14,7 @@ const App = () => {
   const [password, setPassword] = useState<string>("");
   const [errMsg, setErrMsg] = useState<string>("");
   const [success, setSuccess] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const LOGIN_URL = "/auth";
 
   const handleUserName: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -26,6 +27,7 @@ const App = () => {
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const response = await axios.post(
         LOGIN_URL,
@@ -43,6 +45,7 @@ const App = () => {
       setUserName("");
       setPassword("");
       setSuccess(true);
+      setLoading(false);
     } catch (err: any) {
       if (!err?.response) {
         setErrMsg("No Server Response");
@@ -53,6 +56,7 @@ const App = () => {
       } else {
         setErrMsg("Login Failed");
       }
+      setLoading(false);
       errRef.current.focus();
     }
   };
@@ -70,11 +74,7 @@ const App = () => {
         {success ? (
           <h1>success</h1>
         ) : (
-          <form
-            onSubmit={handleSubmit}
-            action=""
-            style={{ gap: "10px", display: "flex", flexDirection: "column" }}
-          >
+          <form onSubmit={handleSubmit} action="">
             <div
               style={{
                 display: "flex",
@@ -83,7 +83,9 @@ const App = () => {
               }}
               className="username"
             >
-              <div style={{ gap: "20px" }}>
+              <div
+                style={{ alignItems: "center", display: "flex", gap: "20px" }}
+              >
                 <label htmlFor="username">Username</label>
                 <input
                   ref={userRef}
@@ -95,7 +97,9 @@ const App = () => {
                   id=""
                 />
               </div>
-              <div>
+              <div
+                style={{ alignItems: "center", display: "flex", gap: "27px" }}
+              >
                 <label htmlFor="password">Password</label>
                 <input
                   onChange={handlePassword}
@@ -117,9 +121,14 @@ const App = () => {
                 <button>sign in</button>
                 <button>sign up</button>
               </div>
-              <p ref={errRef} className={errMsg ? "errMsg" : "offscreen"}>
-                {errMsg}
-              </p>
+              {loading ? (
+                <p>Loading....</p>
+              ) : (
+                <p ref={errRef} className={errMsg ? "errMsg" : "offscreen"}>
+                  {" "}
+                  {errMsg}
+                </p>
+              )}
             </div>
           </form>
         )}
